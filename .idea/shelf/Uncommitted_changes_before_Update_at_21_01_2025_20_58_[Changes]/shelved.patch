@@ -1,0 +1,221 @@
+Index: src/br/com/alura/screenmatch/modelos/Titulo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package br.com.alura.screenmatch.modelos;\r\n\r\npublic class Titulo {\r\n\r\n    private String nome;\r\n    private int anoDeLancamento;\r\n    private boolean incluidoNoPlano;\r\n    private double somaDasAvalicoes;\r\n    private int totalDeAvaliacoes;\r\n    private int duracaoEmMinutos;\r\n\r\n    public String getNome() {\r\n        return nome;\r\n    }\r\n\r\n    public int getAnoDeLancamento() {\r\n        return anoDeLancamento;\r\n    }\r\n\r\n    public boolean isIncluidoNoPlano() {\r\n        return incluidoNoPlano;\r\n    }\r\n\r\n    public int getDuracaoEmMinutos() {\r\n        return duracaoEmMinutos;\r\n    }\r\n\r\n    public int getTotalDeAvaliacoes(){\r\n        return totalDeAvaliacoes;\r\n    }\r\n\r\n    public void setNome(String nome) {\r\n        this.nome = nome;\r\n    }\r\n\r\n    public void setAnoDeLancamento(int anoDeLancamento) {\r\n        this.anoDeLancamento = anoDeLancamento;\r\n    }\r\n\r\n    public void setIncluidoNoPlano(boolean incluidoNoPlano) {\r\n        this.incluidoNoPlano = incluidoNoPlano;\r\n    }\r\n\r\n    public void setDuracaoEmMinutos(int duracaoEmMinutos) {\r\n        this.duracaoEmMinutos = duracaoEmMinutos;\r\n    }\r\n\r\n    public void exibeFichaTecnica(){\r\n        System.out.printf(\"Nome do filme: %s\",nome);\r\n        System.out.printf(\"\\nAno de lançamento: %d\",anoDeLancamento);\r\n        System.out.printf(\"\\nDuração em minutos: %d\\n\",duracaoEmMinutos);\r\n    }\r\n\r\n    public void avalia(double nota){\r\n        somaDasAvalicoes += nota;\r\n        totalDeAvaliacoes++;\r\n    }\r\n\r\n    public double pegaMedia(){\r\n        return somaDasAvalicoes/totalDeAvaliacoes;\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/br/com/alura/screenmatch/modelos/Titulo.java b/src/br/com/alura/screenmatch/modelos/Titulo.java
+--- a/src/br/com/alura/screenmatch/modelos/Titulo.java	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
++++ b/src/br/com/alura/screenmatch/modelos/Titulo.java	(date 1737502198278)
+@@ -9,6 +9,11 @@
+     private int totalDeAvaliacoes;
+     private int duracaoEmMinutos;
+ 
++    public Titulo(String nome, int anoDeLancamento) {
++        this.nome = nome;
++        this.anoDeLancamento = anoDeLancamento;
++    }
++
+     public String getNome() {
+         return nome;
+     }
+Index: src/br/com/alura/screenmatch/modelos/Serie.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package br.com.alura.screenmatch.modelos;\r\n\r\npublic class Serie extends Titulo{\r\n    private int temporadas;\r\n    private boolean ativa;\r\n    private int episodiosPorTemporada;\r\n    private int minutosPorEpisodio;\r\n\r\n    public boolean isAtiva() {\r\n        return ativa;\r\n    }\r\n\r\n    public void setAtiva(boolean ativa) {\r\n        this.ativa = ativa;\r\n    }\r\n\r\n    public int getTemporadas() {\r\n        return temporadas;\r\n    }\r\n\r\n    public void setTemporadas(int temporadas) {\r\n        this.temporadas = temporadas;\r\n    }\r\n\r\n    public int getEpisodiosPorTemporada() {\r\n        return episodiosPorTemporada;\r\n    }\r\n\r\n    public void setEpisodiosPorTemporada(int episodiosPorTemporada) {\r\n        this.episodiosPorTemporada = episodiosPorTemporada;\r\n    }\r\n\r\n    public int getMinutosPorEpisodio() {\r\n        return minutosPorEpisodio;\r\n    }\r\n\r\n    public void setMinutosPorEpisodio(int minutosPorEpisodio) {\r\n        this.minutosPorEpisodio = minutosPorEpisodio;\r\n    }\r\n\r\n    @Override\r\n    public int getDuracaoEmMinutos() {\r\n        return temporadas * episodiosPorTemporada * minutosPorEpisodio;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/br/com/alura/screenmatch/modelos/Serie.java b/src/br/com/alura/screenmatch/modelos/Serie.java
+--- a/src/br/com/alura/screenmatch/modelos/Serie.java	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
++++ b/src/br/com/alura/screenmatch/modelos/Serie.java	(date 1737502198290)
+@@ -6,6 +6,10 @@
+     private int episodiosPorTemporada;
+     private int minutosPorEpisodio;
+ 
++    public Serie(String nome, int anoDeLancamento) {
++        super(nome, anoDeLancamento);
++    }
++
+     public boolean isAtiva() {
+         return ativa;
+     }
+Index: src/Principal.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import br.com.alura.screenmatch.calculos.CalculadoraDeTempo;\r\nimport br.com.alura.screenmatch.calculos.FiltroRecomendacao;\r\nimport br.com.alura.screenmatch.modelos.Episodio;\r\nimport br.com.alura.screenmatch.modelos.Filme;\r\nimport br.com.alura.screenmatch.modelos.Serie;\r\n\r\npublic class Principal {\r\n    public static void main(String[] args) {\r\n        Filme meuFilme = new Filme();\r\n        meuFilme.setNome(\"O poderoso chefão\");\r\n        meuFilme.setAnoDeLancamento(1970);\r\n        meuFilme.setDuracaoEmMinutos(180);\r\n\r\n        Serie lost = new Serie();\r\n        lost.setNome(\"Lost\");\r\n        lost.setAnoDeLancamento(2000);\r\n        lost.exibeFichaTecnica();\r\n        lost.setTemporadas(10);\r\n        lost.setEpisodiosPorTemporada(10);\r\n        lost.setMinutosPorEpisodio(50);\r\n        System.out.println(\"Duração para maratonar Lost: \" + lost.getDuracaoEmMinutos());\r\n\r\n        Filme outroFilme = new Filme();\r\n        outroFilme.setNome(\"Avatar\");\r\n        outroFilme.setAnoDeLancamento(2023);\r\n        outroFilme.setDuracaoEmMinutos(200);\r\n\r\n        CalculadoraDeTempo calculadora = new CalculadoraDeTempo();\r\n        calculadora.inclui(meuFilme);\r\n        calculadora.inclui(outroFilme);\r\n        calculadora.inclui(lost);\r\n        System.out.println(calculadora.getTempoTotal());\r\n\r\n        FiltroRecomendacao filtro = new FiltroRecomendacao();\r\n        filtro.filtra(meuFilme);\r\n\r\n        Episodio episodio = new Episodio();\r\n        episodio.setNumero(1);\r\n        episodio.setSerie(lost);\r\n        episodio.setTotalVisualizacoes(300);\r\n        filtro.filtra(episodio);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Principal.java b/src/Principal.java
+--- a/src/Principal.java	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
++++ b/src/Principal.java	(date 1737502610178)
+@@ -4,25 +4,21 @@
+ import br.com.alura.screenmatch.modelos.Filme;
+ import br.com.alura.screenmatch.modelos.Serie;
+ 
++import java.util.ArrayList;
++
+ public class Principal {
+     public static void main(String[] args) {
+-        Filme meuFilme = new Filme();
+-        meuFilme.setNome("O poderoso chefão");
+-        meuFilme.setAnoDeLancamento(1970);
++        Filme meuFilme = new Filme("O poderoso chefão", 1970);
+         meuFilme.setDuracaoEmMinutos(180);
+ 
+-        Serie lost = new Serie();
+-        lost.setNome("Lost");
+-        lost.setAnoDeLancamento(2000);
++        Serie lost = new Serie("Lost",2000);
+         lost.exibeFichaTecnica();
+         lost.setTemporadas(10);
+         lost.setEpisodiosPorTemporada(10);
+         lost.setMinutosPorEpisodio(50);
+         System.out.println("Duração para maratonar Lost: " + lost.getDuracaoEmMinutos());
+ 
+-        Filme outroFilme = new Filme();
+-        outroFilme.setNome("Avatar");
+-        outroFilme.setAnoDeLancamento(2023);
++        Filme outroFilme = new Filme("Avatar", 2023);
+         outroFilme.setDuracaoEmMinutos(200);
+ 
+         CalculadoraDeTempo calculadora = new CalculadoraDeTempo();
+@@ -39,5 +35,17 @@
+         episodio.setSerie(lost);
+         episodio.setTotalVisualizacoes(300);
+         filtro.filtra(episodio);
++
++        var filmeDoGiu = new Filme("Interestellar", 2006);
++        filmeDoGiu.setDuracaoEmMinutos(200);
++        filmeDoGiu.avalia(10);
++
++        ArrayList<Filme> listaDeFilmes = new ArrayList<>();
++        listaDeFilmes.add(filmeDoGiu);
++        listaDeFilmes.add(meuFilme);
++        listaDeFilmes.add(outroFilme);
++        System.out.println("Tamanho da lista de filmes: " + listaDeFilmes.size());
++        System.out.println("Primeiro filme: " + listaDeFilmes.get(0).getNome());
++        System.out.println("toString do filme: " + listaDeFilmes.get(0).toString());
+     }
+ }
+Index: src/br/com/alura/screenmatch/modelos/Filme.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package br.com.alura.screenmatch.modelos;\r\nimport br.com.alura.screenmatch.calculos.Classificavel;\r\n\r\npublic class Filme extends Titulo implements Classificavel {\r\n    private String diretor;\r\n\r\n    public String getDiretor() {\r\n        return diretor;\r\n    }\r\n\r\n    public void setDiretor(String diretor) {\r\n        this.diretor = diretor;\r\n    }\r\n\r\n    @Override\r\n    public int getClassificacao() {\r\n        return (int) pegaMedia() / 2;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/br/com/alura/screenmatch/modelos/Filme.java b/src/br/com/alura/screenmatch/modelos/Filme.java
+--- a/src/br/com/alura/screenmatch/modelos/Filme.java	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
++++ b/src/br/com/alura/screenmatch/modelos/Filme.java	(date 1737502428333)
+@@ -4,6 +4,11 @@
+ public class Filme extends Titulo implements Classificavel {
+     private String diretor;
+ 
++//    Metodo construtor
++    public Filme(String nome, int anoDelancamento) {
++        super(nome, anoDeLancamento);
++    }
++
+     public String getDiretor() {
+         return diretor;
+     }
+@@ -16,4 +21,9 @@
+     public int getClassificacao() {
+         return (int) pegaMedia() / 2;
+     }
++
++    @Override
++    public String toString() {
++        return "Filme:" + this.getNome() + " (" + this.getAnoDeLancamento() + ")";
++    }
+ }
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+deleted file mode 100644
+--- a/.idea/misc.xml	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
++++ /dev/null	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="23" project-jdk-type="JavaSDK">
+-    <output url="file://$PROJECT_DIR$/out" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+deleted file mode 100644
+--- a/.idea/vcs.xml	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
++++ /dev/null	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
++++ /dev/null	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+Index: .gitignore
+===================================================================
+diff --git a/.gitignore b/.gitignore
+deleted file mode 100644
+--- a/.gitignore	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
++++ /dev/null	(revision f0b9412010a771cea330e6bdc42f3e1d470afeee)
+@@ -1,29 +0,0 @@
+-### IntelliJ IDEA ###
+-out/
+-!**/src/main/**/out/
+-!**/src/test/**/out/
+-
+-### Eclipse ###
+-.apt_generated
+-.classpath
+-.factorypath
+-.project
+-.settings
+-.springBeans
+-.sts4-cache
+-bin/
+-!**/src/main/**/bin/
+-!**/src/test/**/bin/
+-
+-### NetBeans ###
+-/nbproject/private/
+-/nbbuild/
+-/dist/
+-/nbdist/
+-/.nb-gradle/
+-
+-### VS Code ###
+-.vscode/
+-
+-### Mac OS ###
+-.DS_Store
+\ No newline at end of file
